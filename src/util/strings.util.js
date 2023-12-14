@@ -11,6 +11,7 @@ const status = {
     alreadyExists: { message: "document already exists!", code: 200 },
     doesntExists: { message: "document doesnt exists!", code: 502 },
     authError: { message: "Authorisation Error", code: 511 },
+    refreshError: { message: "Refresh Token Expired", code: 511 },
 }
 
 module.exports = { status }

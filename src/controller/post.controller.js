@@ -8,7 +8,6 @@ const readPost = async (req, res) => { }
 const updatePostViewCount = async (req, res) => { }
 const updatePostStatus = async (req, res) => { }
 const deletePost = async (req, res) => { }
-const deleteAllPost = async (req, res) => { }
 
 module.exports = {
     createPost,
@@ -18,5 +17,4 @@ module.exports = {
     updatePostViewCount,
     updatePostStatus,
     deletePost,
-    deleteAllPost
 }
