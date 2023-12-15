@@ -53,7 +53,7 @@ const createAccount = async (req, res) => {
 
 const readAccount = async (req, res) => {
     try {
-        const { userId } = req.body
+        const { userId } = req.query
         const result = await prisma.user.findUnique({
             where: { id: userId },
             select: { name: true, email: true, posts: { select: { id: true, createdAt: true, updatedAt: true, title: true, content: true, viewCount: true } } }
