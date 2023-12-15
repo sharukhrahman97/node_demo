@@ -1,8 +1,8 @@
 // RESPONSE HANDLED HERE
 const responseHelper = (status, result) => {
     const response = {
-        code: status.statusCode,
-        message: status.statusMessage,
+        code: status.code,
+        message: status.message,
         result,
     };
     return response;

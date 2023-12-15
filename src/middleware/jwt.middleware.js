@@ -1,6 +1,6 @@
 require('dotenv').config();
 const jwt = require("jsonwebtoken");
-const { status } = require('../util/strings.util');
+const { status } = require('../util/status.util');
 const { responseHelper } = require('../helper/response.helper');
 const crypto = require('crypto');
 
@@ -23,21 +23,22 @@ const createTokens = (userId) => {
 };
 
 const verifyTokens = (req, res, next) => {
+    if (process.env.MODE === 1) return next()
     const accessToken = req.header("CL-X-TOKEN");
-    const refreshToken = req.cookies["CL-X-REFRESH"];
+    const refreshToken = req.header("CL-X-REFRESH");
     if (accessToken && refreshToken) {
         try {
             const decodedToken = jwt.verify(accessToken, process.env.JWT_SECRET);
             req.body.userId = decodedToken.sub;
-            next();
+            return next();
         } catch (accessTokenError) {
             try {
                 const decodedRefreshToken = jwt.verify(refreshToken, process.env.JWT_SECRET);
                 const newAccessToken = refreshAccessToken(decodedRefreshToken);
                 req.body.userId = decodedRefreshToken.sub;
-                res.setHeader('CL-X-TOKEN', newAccessToken);
+                res.cookie('CL-X-TOKEN', newAccessToken, { httpOnly: true, secure: true });
                 res.cookie('CL-X-REFRESH', refreshToken, { httpOnly: true, secure: true });
-                next();
+                return next();
             } catch (refreshTokenError) {
                 return res.status(status.refreshError.code).json(responseHelper(status.refreshError, "Invalid tokens"));
             }

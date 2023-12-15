@@ -1,6 +1,6 @@
 const { PrismaClient } = require('@prisma/client')
 const prisma = new PrismaClient()
-const { status } = require('../util/strings.util')
+const { status } = require('../util/status.util')
 const { responseHelper } = require('../helper/response.helper')
 
 const createPost = async (req, res) => {
@@ -36,12 +36,12 @@ const readAllPosts = async (req, res) => {
                 published: true,
                 ...or,
             },
-            include: { author: true },
             take: take || undefined,
             skip: skip || undefined,
             orderBy: {
                 updatedAt: orderBy || undefined,
             },
+            select: { id: true, createdAt: true, updatedAt: true, title: true, content: true, published: true, viewCount: true, authorId: true, author: { select: { id: true, name: true, email: true } } }
         })
         return res.status(status.readDoc.code).json(responseHelper(status.readDoc, result));
     } catch (error) {
@@ -71,7 +71,8 @@ const readPost = async (req, res) => {
     try {
         const { id } = req.params
         const result = await prisma.post.findUnique({
-            where: { id: id },
+            where: { id: id, published: true },
+            select: { id: true, createdAt: true, updatedAt: true, title: true, content: true, published: true, viewCount: true, authorId: true, author: { select: { id: true, name: true, email: true } } }
         })
         return res.status(status.readDoc.code).json(responseHelper(status.readDoc, result));
     } catch (error) {

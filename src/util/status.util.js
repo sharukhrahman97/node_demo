@@ -8,6 +8,7 @@ const status = {
     readErrorDoc: { message: "document is not fetched", code: 503 },
     deleteErrorDoc: { message: "document is not deleted", code: 503 },
     noResult: { message: "No result found!", code: 404 },
+    validationError: { message: "Validation Error", code: 400 },
     alreadyExists: { message: "document already exists!", code: 200 },
     doesntExists: { message: "document doesnt exists!", code: 502 },
     authError: { message: "Authorisation Error", code: 511 },
