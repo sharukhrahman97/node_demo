@@ -1,5 +1,4 @@
-# REST EXPRESS
-## Skill Assessment / Level 1 - Backend developer/Customerlabs.Inc
+# EXPRESS/PRISMA - Sample Backend
 _Sharukh Rahman S_
 
 This server app is creating using [Express](https://expressjs.com/) and [Prisma Client](https://www.prisma.io/docs/concepts/components/prisma-client). It uses a SQLite database file with some initial dummy data which you can find at [`./prisma/dev.db`](./prisma/dev.db).
